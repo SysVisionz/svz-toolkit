@@ -1,0 +1,10 @@
+.overlay-box {
+	position: relative;
+	.svz-ob-overlay-content{
+		background: #3337;
+		position: absolute; 
+		height: 100%; 
+		width: 100%; 
+		transition: opacity 400ms ease;
+	}
+}

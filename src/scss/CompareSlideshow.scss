@@ -1,0 +1,32 @@
+.svz-cs-container{
+	display: flex;
+	position: relative;
+	.svz-cs-arrow-button{
+		position: absolute;
+		opacity: 0; 
+		transition: opacity 400ms ease;
+		cursor: pointer;
+		z-index: 2;
+		&.active{
+			pointer-events: none;
+			opacity: 1;
+		}
+		.right-arrow{
+			left: 100%;
+		}
+	}
+	.svz-cs-slide{
+		opacity: 0;
+		display: flex;
+		transition: opacity 400ms ease;
+		position: absolute;
+		height: 300px;
+		width: 600px;
+		&.active{
+			opacity: 1;
+		}
+		&.vertical{
+			flex-direction: column;
+		}
+	}
+}

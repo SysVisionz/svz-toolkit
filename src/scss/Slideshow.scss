@@ -1,0 +1,28 @@
+@import './base-vars.scss';
+
+.svz-slide{
+	position: relative;
+	display: inline-block;
+}
+
+.svz-slider{
+	display: flex;
+	flex-direction: column; 
+	justify-content: center; 
+	align-items: center;
+	input{
+		width: 100%;
+	}
+	.svz-range-labels{
+		width: 100%; 
+		display: flex; 
+		flex-direction: row; 
+		justify-content: space-between;
+	}
+}
+
+.svz-uploader{
+	.hidden{
+		display: none;
+	}
+}

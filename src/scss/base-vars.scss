@@ -1,0 +1,55 @@
+$bgColor: (
+	base: #fcfcfc,
+	dark: #ccc,
+	xdark: #888,
+	blue: #5757c3
+);
+$black: (
+	dark: #111,
+	base: #333,
+	light: #8d8d8d,
+	xlight: #cdcdcd
+);
+$break: (
+	mobile: 500px,
+	small: 768px,
+	large: 900px,
+	xlarge: 1125px
+);
+
+$shadow: -1px 1px 2px map-get($black, "base");
+
+body{
+	&.svz-locked{
+		overflow: hidden;
+	}
+}
+
+img{
+	&.full-img {
+		position: absolute;
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+		max-width: none;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+.button, input[type="submit"], input[type="button"], button{
+	padding: 4px 10px;
+	cursor: pointer;
+	border-radius: 5px;
+	margin: 5px;
+	font-weight: bold;
+	background-color: #5757c3;
+	border: 1px solid #fcfcfc;
+	color: #fcfcfc;
+	box-shadow: -1px 1px 2px #333;
+	display: inline-block;
+	.hidden{
+		display: none;
+	}
+}

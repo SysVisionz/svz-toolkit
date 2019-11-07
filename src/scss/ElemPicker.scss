@@ -1,0 +1,49 @@
+@import './base-vars.scss';
+
+.svz-ep-container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	.svz-ep-selection-container{
+		display: flex;
+		align-items: center;
+		position: relative;
+		@media screen and (max-width: map-get($break, "small") - 1){
+			flex-direction: column;
+		}
+		.selection-content{
+			height:300px;
+			width: 600px;
+			@media screen and (max-width: map-get($break, small) - 1){
+				height: 600px;
+				width: 300px;
+			}
+		}
+		position: relative;
+		margin: 30px 0;
+		display: flex;
+		justify-content: center;
+		.svz-ep-picker-content{
+			opacity: 1;
+			position: absolute;
+			top: 0;
+			transition: opacity 400ms ease;
+			&.inactive{
+				opacity: 0;
+				pointer-events: none;
+			}
+		}
+	}
+	.svz-ep-picker-container{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		@media screen and (max-width: map-get($break, "small") - 1){
+			overflow-y: scroll;
+			height: 300px;
+			justify-content: flex-start;
+			border-radius: 5px;
+		}
+	}
+}

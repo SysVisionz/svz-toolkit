@@ -1,0 +1,50 @@
+@import './base-vars.scss';
+
+.modal-container{
+	transition: opacity 200ms ease;
+	pointer-events: none;
+	opacity:0;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	&.active{
+		pointer-events: all;
+		opacity: 1;
+	}
+	.modal-background{
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		background-color: #3338;
+	}
+	.modal-window {
+		position: absolute;
+		background-color: map-get($bgColor, base);
+		.modal-close {
+			position: absolute; 
+			background-color: #ad2727; 
+			padding: 10px; 
+			width: 10px; 
+			height: 10px; 
+			top: 0; 
+			right: 0;
+			align-items: center;
+			justify-content: center;
+			display: flex;
+			border-radius: 1000px;
+			cursor: pointer;
+		}
+	}
+	&.super{
+		z-index: 1001;
+		.modal-background{
+			background-color: transparent;
+		}
+	}
+}

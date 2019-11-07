@@ -1,0 +1,23 @@
+textarea{
+	.expanding{
+		overflow: hidden;
+	}
+	.expanding-sizer{
+		position: absolute; 
+		left: -10000px; 
+		opacity: 0; 
+		pointer-events: none;
+	}
+}
+
+.svz-expanding-text{
+	textarea{
+		min-height: 100px;
+		overflow: hidden;
+		&.sizer-text-area{
+			height: 2px;
+			left: -10000px;
+			position: absolute;
+		}
+	}
+}

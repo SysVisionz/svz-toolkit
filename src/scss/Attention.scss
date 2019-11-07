@@ -1,0 +1,49 @@
+@import './base-vars.scss';
+
+.attention-wrapper{
+	.jumper-container{
+		position: relative;
+		.attention-jumper {
+			animation-duration: 2s;
+			animation-name: attention;
+			animation-iteration-count: infinite;
+			color: #f1eb2d;
+			text-shadow: 1px 1px 2px map-get($black, base);
+			font-weight: 700;
+			font-family: courier new;
+			position: absolute;
+			margin-left: -3px; 
+		}
+	}
+}
+
+@keyframes attention {
+	30% {
+		transform: scale(1) rotate(0deg) translate(0px, 0px);
+	}
+	40% {
+		transform: scale(1.2) rotate(0deg) translate(0px, -2px); 
+	}
+	50% {
+		transform: scale(1.2) rotate(10deg) translate(0px, -2px);
+		padding-bottom: 5px; 
+	}
+	55% {
+		transform: scale(1.2) rotate(-10deg) translate(0px, -2px);
+		padding-bottom: 5px; 
+	}
+	60% {
+		transform: scale(1.2) rotate(10deg) translate(0px, -2px);
+		padding-bottom: 5px; 
+	}
+	65% {
+		transform: scale(1.2) rotate(-10deg) translate(0px, -2px);
+		padding-bottom: 5px; 
+	}
+	75% {
+		transform: scale(1.2) rotate(0deg) translate(0px, -2px); }
+	85% {
+		transform: scale(1) rotate(0deg) translate(0px, 0px);
+		margin-bottom: 0px; 
+	} 
+}

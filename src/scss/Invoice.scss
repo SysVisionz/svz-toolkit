@@ -1,0 +1,148 @@
+$border: 1px solid #333;
+
+.invoice-container{
+	.invoice-title{
+		font-size: 26px;
+		font-weight: bold;
+		text-align: center;
+	}
+	.invoice-header {
+		max-width: 800px;
+	}
+	.invoice-body {
+		max-width: 800px;
+		padding: 20px 20px 0 20px;
+		table{
+			border-collapse: collapse;
+		}
+		.invoice-section-container{
+			justify-content: flex-end;
+			display: flex;
+			margin-bottom: 40px;
+			flex-direction: column;
+			.invoice-section-content{
+				width: 100%;
+				tbody{
+					tr{
+						border-right: $border;
+						border-left: $border;
+						td{
+							border-right: $border;
+							white-space: nowrap;
+							padding: 5px;
+							&:first-child{
+								width: 100%;
+								white-space: normal;
+							}
+							&:last-child{
+								text-align: right;
+							}
+						}
+						&:first-child{
+							border: $border;
+							font-weight: bold;
+							td{
+								padding-bottom: 0;
+							}
+						}
+						&:nth-child(2n+3){
+							background-color: #ccc;
+						}
+					}
+				}
+				tfoot{
+					border-top: $border;
+					tr{
+						td{
+							white-space: nowrap;
+							padding: 3px;
+							text-align: right;
+							&:first-child{
+								position: relative;
+								width: 100%;
+								text-align: left;
+								.button{
+									display: inline-block;
+								}
+							}
+							&:not(:last-child){
+								font-weight: bold;
+							}
+						}
+					}
+				}
+				.invoice-header{
+					margin: 2px;
+					font-size: 18px;
+					font-weight: bold;
+				}
+				h5{
+					margin: 10px 0 0 0;
+				}
+			}
+		}
+		.invoice-totals{
+			justify-content: flex-end;
+			display: flex;
+			margin-bottom: 40px;
+			h5, p{
+				margin: 10px 0 0 0;
+			}
+			tr{
+				td{
+					white-space: nowrap;
+					padding: 3px;
+					text-align: right;
+					&:first-child{
+						width: 100%;
+					}
+					&:not(:last-child){
+						font-weight: bold;
+					}
+				}
+			}
+		}
+	}
+	.invoice-footer{
+		max-width: 800px;
+		padding: 0 20px 20px 20px;
+		.notes-section{
+			padding: 5px;
+			border: 2px solid #333;
+			border-radius: 5px;
+			margin-bottom: 50px;
+			.notes-container{
+				margin: 20px 0 20px 0px;
+			}	
+		}
+	}
+	.editing-section{
+		.button{
+
+		}
+		.modal-container{
+			.modal-window{
+				width: 50vw;
+				.svz-input-switcher{
+					display: flex;
+					align-items: center;
+					.submit-buttons-div{
+						display: flex;
+						align-items: center;
+						justify-content: flex-start;
+					}
+					&.flat-discount, &.units-price{
+						&:before{
+							content:"$";
+						}
+					}
+					&.percent-discount{
+						.submit-buttons-div:before{
+							content:"%";
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,108 @@
+.svz-dropdown-container{
+	position: relative;
+	.svz-dropdown-sub-container{
+		display: inline-block;
+		position: relative;
+		.svz-dropdown-menu{
+			position: absolute;
+			overflow: hidden;
+			opacity: 1;
+			background-color: #fcfcfc;
+			&.slide-in{
+				transition: height 400ms 300ms ease, width 400ms 300ms ease;
+				.menu-content{
+					transition: opacity 300ms ease;
+					opacity: 0;
+				}
+			}
+			&.fade-in{
+				opacity: 0;
+				transition: opacity 400ms ease;
+				&.active{
+					opacity: 1;
+				}
+			}
+			.menu-content{
+				display: flex;
+				position: absolute;
+				overflow: hidden;
+			}
+			&.pop-down, &.pop-up{
+				.menu-content{
+					flex-direction: column;
+				}
+			}
+			&.drop-up{
+				bottom: 100%
+			}
+			&.drop-down, &.drop-up{
+				&.pop-left{
+					right: 0;
+				}
+				&.pop-right{
+					left: 0;
+				}
+			}
+			&.drop-left{
+				right:100%;
+			}
+			&.drop-right{
+				left:100%;
+			}
+			&.drop-left, &.drop-right{
+				&.pop-up{
+					bottom: 0;
+				}
+				&.pop-down{
+					top: 0;
+				}
+			}
+			&.orient-top{
+				bottom: 0;
+				top: unset;
+			}
+			&.orient-bottom{
+				top: 0;
+				bottom: unset;
+			}
+			&.orient-left{
+				right:0;
+				left: unset;
+			}
+			&.orient-right{
+				left: 0;
+				right: unset;
+			}
+			&.orient-center{
+				&.drop-down, &.drop-up{
+					left: 50%;
+					right: unset;
+					transform: translate(-50%, 0)
+				}
+				&.drop-left, &.drop-right{
+					top: 50%;
+					bottom: unset;
+					transform: translate(0, -50%);
+				}
+			}
+			&.active, &.transitioning{
+				overflow: visible;
+				.menu-content{
+					overflow: visible;
+				}
+			}
+			&.active{
+				&.slide-in{
+					transition: height 400ms ease, width 400ms ease;
+					.menu-content{
+						transition: opacity 300ms 400ms ease;
+					}
+				}
+				.menu-content{
+					opacity: 1;
+				}
+
+			}
+		}
+	}
+}

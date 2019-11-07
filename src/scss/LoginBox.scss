@@ -1,0 +1,75 @@
+@import './base-vars.scss';
+
+.auth-container{
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0;
+	transition: opacity 300ms ease;
+	&.ready{
+		opacity: 1;
+	}
+	.error-box{
+		top: 0;
+		right: 100%;
+		height: 0;
+		transition: height 200ms ease;
+		@media screen and (max-width: map-get($break, "small") - 1){
+			right: 0;
+			top: 98%;
+		}
+		&.active{
+			height: 50px;
+		}
+	}
+	.button{
+		padding: 5px;
+		@media screen and (max-width: map-get($break, "large") - 1){
+			padding: 3px 5px;
+		}
+	}
+	form {
+		display: flex;
+		@media screen and (max-width: map-get($break, "small") - 1 ){
+			flex-direction: column;
+			padding: 10px;
+		}
+		input{
+			transition: opacity 200ms ease;
+			opacity: 1;
+			max-width: 100px;
+		}
+		.login-box{
+			position: relative;
+		}
+		.password-box{
+			display: flex;
+			align-items: center;
+		}
+		.user-box{
+			display: flex;
+			align-items: center;
+		}
+		.persist-box{
+			display: flex;
+			align-items: center;
+			p {
+				margin: 0;
+			}
+		}
+		&.logging-in{
+			.user-box, .password-box, .persist-box {
+				opacity: .3;
+				input{
+					pointer-events: none;
+				}
+			}
+			.login-box{
+				input{
+					position: relative;
+					opacity: 0;
+				}
+			}
+		}
+	}
+}

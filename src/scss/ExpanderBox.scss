@@ -1,0 +1,93 @@
+.svz-eb-container{
+	width: 100%;
+	height: 100%;
+	position: relative; 
+	display: flex;
+	&.column{
+		flex-direction: column;
+	}
+	.svz-eb-elem {
+		transition: flex 400ms  200ms ease;
+		overflow: hidden;
+		position: relative;
+		flex:1;
+		cursor: pointer;
+		.svz-eb-content{
+			position: absolute;
+			height: 100%;
+			width: 100%;
+		}
+		.svz-eb-close{
+			opacity: 1;
+			transition: opacity 400ms 400ms ease;
+			position: absolute;
+			top: 5px;
+			right: 5px;
+		}
+		.svz-eb-overlay-container {
+			opacity: 0;
+			pointer-events: none;
+			height: 100%;
+			cursor: pointer;
+			transition: opacity 400ms 200ms ease;
+			.svz-eb-elem-overlay{
+				opacity: 1;
+				transition: opacity 400ms ease;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				background-color: #3338;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+			}
+			.svz-eb-icon-container{
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				background-color: #3338;
+				opacity: 0;
+				transition: opacity 400ms ease;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				>div{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+			&:hover {
+				.svz-eb-elem-overlay{
+					opacity: 0;
+				}
+				.svz-eb-icon-container{
+					opacity: 1;
+				}
+			}
+		}
+		&:not(.all){
+			.svz-eb-elem-overlay{
+				opacity: 0;
+			}
+			.svz-eb-icon-container{
+				opacity: 1;
+			}
+		}
+		&.inactive{
+			&:not(.all){
+				transition: flex 400ms ease;
+				flex:0;
+			}
+			.svz-eb-close{
+				transition: opacity 200ms ease;
+				opacity: 0;
+			}
+			.svz-eb-overlay-container {
+				opacity: 1;
+				pointer-events: all;
+			}
+ 		}
+	}
+}
