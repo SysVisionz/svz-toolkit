@@ -127,7 +127,7 @@ class Dropdown extends Component {
 						onClick = {() => this.clickedMenu = props.keepOpen ? true : false} 
 					>
 						<div 
-							className={'menu-content'}
+							className={filterJoin(['menu-content', ['active', open]])}
 							ref={this.contentDiv} 
 						>
 							{buildMenu()}

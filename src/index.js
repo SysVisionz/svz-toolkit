@@ -23,3 +23,4 @@ export * from './Slideshow.js';
 export * from './svz-utilities.js';
 export * from './Uploader.js'
 export * from './ScreenManager';
+export * from './TagsPicker';

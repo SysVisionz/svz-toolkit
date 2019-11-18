@@ -1,0 +1,8 @@
+@import './base-vars.scss';
+
+.button{
+	background-color: transparent;
+	.active{
+		background-color: unset;
+	}
+}

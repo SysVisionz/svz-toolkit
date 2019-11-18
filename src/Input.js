@@ -6,6 +6,7 @@ import {Button} from './Button';
 import './scss/ExpandingText.scss';
 
 const InputNoSubmit = props => {
+	const checkedOrValue = evt => props.onChange ? props.onChange (props.type === 'radio' || props.type === 'checkbox' ? evt.target.checked : evt.target.value) : null
 	return (
 		<div className={props.className}>
 			{props.label}{props.label ? <br/> : null}
@@ -13,7 +14,7 @@ const InputNoSubmit = props => {
 				type={props.type} 
 				checked={props.checked} 
 				value={props.value} 
-				onChange={evt => props.onChange(typeof evt.target.value === 'string' ? evt.target.value : evt.target.checked)} 
+				onChange={checkedOrValue} 
 				name={props.name} 
 				placeholder={props.placeholder} 
 				autoComplete={props.autoComplete}/>
@@ -36,7 +37,7 @@ class InputWithSubmit extends Component {
 		super(props)
 		this.state = {
 			value : props.value,
-			active : false,
+			active : props.active || false,
 		}
 		this.ctrlDown = false;
 		this.refs = {
@@ -47,8 +48,8 @@ class InputWithSubmit extends Component {
 	}
 
 	componentDidUpdate(){
-		const {state} = this;
-		const {prevLength, minHeight, width, value} = state;
+		const {prevLength, minHeight, width, value} = this.state;
+		const {active} = this.props;
 		const spacer = this.refs.spacer ? this.refs.spacer.current : null;
 		const text = this.refs.text ? this.refs.text.current : null;
 		if (text && spacer){
@@ -67,6 +68,9 @@ class InputWithSubmit extends Component {
 				this.setState({prevLength: value ? value.replace(/\n/g, '.').length : 0});
 			}
 		}
+		if (this.state.active !== active){
+			this.setState({active});
+		}
 	}
 
 	onChangeVal = evt => {
@@ -78,20 +82,24 @@ class InputWithSubmit extends Component {
 
 	handleSubmit = () => {
 		const {enterPress, ctrlPress, ctrlUp, props, state} = this;
-		const {clear, box, onSubmit} = props;
+		const {clear, box, onSubmit, active = false} = props;
 		const {value} = state;
-		this.setState({active: false});
+		this.setState({active});
 		if (onSubmit){
 			if (box){
 				onSubmit(value.replace(/\n/g, "<br>"));
-				document.removeEventListener('keydown', enterPress);
-				document.removeEventListener('keydown', ctrlPress);
-				document.removeEventListener('keyup', ctrlUp);
+				if(!active){
+					document.removeEventListener('keydown', enterPress);
+					document.removeEventListener('keydown', ctrlPress);
+					document.removeEventListener('keyup', ctrlUp);
+				}
 				this.ctrlDown = false;
 			}
 			else{
 				onSubmit(value)
-				document.removeEventListener('keydown', enterPress)
+				if(!active){
+					document.removeEventListener('keydown', enterPress)
+				}
 			}
 
 		}
@@ -198,7 +206,7 @@ class InputWithSubmit extends Component {
 						<Button
 							className={filterJoin([['hidden', box]])}
 							onClick ={() => this.handleSubmit()}
-						>{submitText ? submitText : 'Submit'}
+						>{submitText || 'Submit'}
 						</Button>
 						<Button className='svz-x-button' onClick={this.handleClose}>x</Button>
 					</div>

@@ -32,6 +32,20 @@ and finally, implement it by including that component within your code:
 />
 ```
 
+**##Included Components**
+
+##Address
+
+A component functionally allowing you to make an address and set the variables in it if you so desire.
+
+###Optional Variables
+
+####
+
+
+##Dropdown  
+A Dropdown menu element, also available individually as the sysvisionz-react-dropdown npm package.
+
 ### Necessary Variables
 
 #### button
@@ -108,40 +122,4 @@ The only prerequisite for the use of this is that you have React installed.
 
 ## Version History
 1.0 -   
-initial release  
-1.1 -  
-implemented ability to use any JSX element as activating button  
-implemented keepOpen prop.  
-1.2 -  
-resolved location issues with package.json  
-reversed drop and pop for clarity.  
-cleaner implementation of several code sections.  
-1.3 -  
-allowed for multiple dropdowns to be generated.  
-1.4 -  
-added style prop.  
-1.5 -  
-added buttonId and menuId properties  
-added ability to split array elements into ```id``` and ```children``` properties.  
-1.6 -  
-added onToggle, onOpen, and onClose properties.  
-1.7 -  
-added delay and clickableInDelay properties.  
-1.8 -  
-significant refactor for reliability, removal of retrieved redundant boolean on onToggle.  
-1.9 -  
-implementation of leftUp, rightUp, upLeft and downLeft drop options.
-
-2.0 -  
-Complete refactor and bugfixes  
-addition of orientation  
-modification of listVisible to isOpen for ease of use  
-significant additions to user control of elements.  
-addition of controlled option.  
-2.1 -  
-Huge bugfix  
-introduction of open and closed automatic class name.  
-now properly allows for animations  
-
-3.0 -  
-Complete refactor, removal of many extraneous variables, actual complete bugfixes.
+initial release

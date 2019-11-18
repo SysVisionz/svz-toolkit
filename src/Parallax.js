@@ -110,7 +110,7 @@ export class Parallax extends Component {
 	render() {
 		const {
 			contentStyle, 
-			img,
+			src,
 			imgStyle,
 			className,
 			contentClass, 
@@ -119,16 +119,16 @@ export class Parallax extends Component {
 		} = this.props;
 		return (
 			<div 
-				className={filterJoin(['svz-background-slice', slow, className])} 
+				className={filterJoin(['svz-parallax', slow, className])} 
 				ref={this.ref.container} 
 				style={this.props.style}
 			><div 
-					className="bs-container"
+					className="plax-container"
 					ref={this.ref.image}
 				>
 					<img 
-					alt="svz-background-slice-background"
-					src={img}
+					alt="svz-plax-background"
+					src={src}
 					className="full-img"
 					/>
 				</div>
