@@ -1,139 +1,135 @@
-import React, {Component, useState} from 'react'
+import React, {useState, Component} from 'react'
 import PropTypes from 'prop-types';
 import {filterJoin} from './svz-utilities';
 import './scss/Parallax.scss';
-export class Parallax extends Component {
 
-// props: 
-// lockToScreen, bound, boundToBottom, offsetTop, offsetLeft, offsetY, offsetX, slow
-// image
-// style, imageStyle, contentStyle
-// className, contentClass, id
-	
-	constructor(props) {
-		super(props)
-		this.ref={container: React.createRef(), image: React.createRef()}
-		this.pageTop=0;
-		if (this.props.smoothScrolling) {this.props.smoothScrolling(true) };
+const Parallax = props => props.slow ? <SlowParallax {...props} /> : <BaseParallax {...props} />;
+
+const BaseParallax = props => {
+	const [run, setRun] = useState({x: true, y: true})
+	if (run.x !== innerWidth < document.body.scrollWidth || run.y !== innerHeight < document.body.scrollHeight){
+		run.x = innerWidth < document.body.scrollWidth
+		run.y = innerHeight < document.body.scrollHeight
+		setRun(run);
 	}
+	const {
+		src,
+		className,
+		children,
+		id,
+		refs
+	} = props;
+	return <div className="svz-parallax-container">
+		<div 
+				className='svz-parallax' 
+			>
+				<div 
+					className={filterJoin(["plax-container", ['run-x', run.x], ['run-y', run.y]])}
+				>
+					<img 
+						alt="svz-plax-background"
+						src={src}
+						className="full-img"
+					/>
+				</div>
+			<div 
+				className={filterJoin(["content", className])}
+				id={id}
+			>
+				{children}
+			</div>
+		</div>
+	</div>
+}
 
-	ifPercent = (value, toChange) => {
-		if (Number.parseFloat(value)){
-			if (typeof value == 'string' && value.charAt(value.length-1) === "%") {
-				return Number.parseFloat(value)/100*toChange
-			}
-			return Number.parseFloat(value);
-		}
-		return 0;
-	}
-
-	computeOffset= (offset, shrink, elementVal, elementOffset, screenVal, screenDimension, lockToScreen) => {
-		const {ifPercent, computeDimension} = this;
-		screenDimension = computeDimension(offset, shrink, screenDimension)
-		elementOffset = ifPercent(offset, screenDimension)+ ifPercent(shrink, screenDimension)-elementOffset;
-		if (lockToScreen){
-			return screenVal;
-		}
-		if (screenDimension < elementVal) {
-			return screenVal+elementOffset+(screenDimension-elementVal)/2;
-		}
-		return screenVal+elementOffset
-	}
-
-	componentDidUpdate(){
-		if (window.pageYOffset !== this.pageTop && this.ref.container.current && this.ref.image.current ){
-			this.updateVals();
-		}
-	}
-
-	computeDimension = (offset, shrink, screenDimension) => {
-		const {ifPercent} = this;
-		return screenDimension - ifPercent(offset, screenDimension) -  ifPercent(shrink, screenDimension) * 2
-	}
-
-	updateCheck = () => {
-		if (window.pageYOffset !== this.pageTop && this.ref.container.current && this.ref.image.current){
-			this.updateVals();
-		}
+class SlowParallax extends Component{
+	constructor(props){
+		super();
+		this.imageRef = React.createRef();
+		this.containerRef = React.createRef();
+		props.smoothScrolling(true);
+		this.state = {runCheck : {}}
 	}
 
 	componentDidMount(){
 		window.addEventListener('scroll', this.updateCheck);
-		this.updateVals();
+		window.addEventListener('resize', this.updateCheck);
+		this.updateCheck();
 	}
 
-	componentWillUnmount(){
-		window.removeEventListener('scroll', this.updateCheck);
+	componentDidUpdate(){
+		this.updateCheck();
 	}
 
-	updateVals = () => {
-		const {computeOffset, ref} = this;
-		const {offsetTop, offsetLeft, offsetY, offsetX, lockToScreen, bound, boundToBottom, slow} = this.props;
-		const container = ref.container.current;
-		const image = ref.image.current;
-		let top;
-		let marginLeft;
-		image.height = slow ? container.height * 1.5 : container.height;
-		if (container && image){
-			top = computeOffset(
-				offsetTop, 
-				offsetY, 
-				image.height, 
-				container.offsetTop,
-				slow ? window.pageYOffset * .75 : window.pageYOffset, 
-				offsetX, 
-				lockToScreen
-			);
-			marginLeft = -computeOffset(
-				offsetLeft, 
-				offsetX, 
-				container.offsetLeft,
-				window.pageXOffset, 
-				0, 
-				lockToScreen
-			)
-			const bottomOfMarker = container.offsetTop+container.clientHeight-window.innerHeight;
-			if (bound){
-				if (top < container.offsetTop){
-					top = container.offsetTop;
+	updateCheck = () => {
+		const {offsetY, offsetX} = this.props;
+		const {runCheck} = this.state;
+		if (runCheck === {}){
+			runCheck.x = innerWidth < document.body.scrollWidth
+			runCheck.y = innerHeight < document.body.scrollHeight
+		}
+		if (runCheck.x !== innerWidth < document.body.scrollWidth || runCheck.y !== innerHeight < document.body.scrollHeight){
+			runCheck.x = innerWidth < document.body.scrollWidth
+			runCheck.y = innerHeight < document.body.scrollHeight
+			this.setState({runCheck});
+		}
+		else{
+			const {clientHeight, clientWidth}= this.imageRef.current;
+			const {x, y} = this.containerRef.current.getBoundingClientRect();
+			const doX = x < innerWidth && x > -innerWidth && runCheck.x
+			const doY = y < innerHeight && y > -innerHeight && runCheck.y
+			if (doX || doY){
+				const position = {x: x/innerWidth - 1, y: y/innerHeight-1}
+				const difference = {
+					x: (this.imageRef.current.clientWidth - this.containerRef.current.clientWidth)/2,
+					y: (this.imageRef.current.clientHeight - this.containerRef.current.clientHeight)/2
 				}
-				else if (bottomOfMarker < top+image.height && boundToBottom){
-					top += bottomOfMarker-top;
+				if (doX){
+					this.imageRef.current.style.left = (position.x*difference.x + (offsetX || 0))+'px';
+				}
+				if (doY){
+					this.imageRef.current.style.top = (difference.y*position.y  + (offsetY || 0))+'px';
 				}
 			}
-			image.style.top = top + "px";
-			image.style.marginLeft = marginLeft + "px"; 
-			this.pageTop = window.pageYOffset;
 		}
 	}
 
-	render() {
+	render(){
 		const {
-			contentStyle, 
 			src,
-			imgStyle,
 			className,
-			contentClass, 
 			children,
-			slow
+			slow,
+			id,
 		} = this.props;
-		return (
+		const {
+			runCheck
+		} = this.state;
+		return <div className="svz-parallax-container">
 			<div 
-				className={filterJoin(['svz-parallax', slow, className])} 
-				ref={this.ref.container} 
-				style={this.props.style}
-			><div 
-					className="plax-container"
-					ref={this.ref.image}
+					className='svz-parallax slow' 
+					ref = {this.containerRef}
 				>
-					<img 
-					alt="svz-plax-background"
-					src={src}
-					className="full-img"
-					/>
+					<div 
+						className={filterJoin(["plax-container slow", ['run-x', runCheck && runCheck.x], ['run-y', runCheck && runCheck.y]])}
+						ref={this.imageRef}
+					>
+						<img 
+							alt="svz-plax-background"
+							src={src}
+							className="full-img"
+						/>
+					</div>
+				<div 
+					className={filterJoin(["content", className])}
+					id={id}
+				>
+					{children}
 				</div>
-				<div className={filterJoin(["content", contentClass])} style={contentStyle}>{children}</div>
 			</div>
-		)
+		</div>
 	}
+
 }
+
+export {Parallax};

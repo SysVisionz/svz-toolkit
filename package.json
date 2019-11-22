@@ -1,6 +1,6 @@
 {
   "name": "svz-toolkit",
-  "version": "1.0.1",
+  "version": "0.1",
   "description": "A quick and easy but lightweight and incredibly customizable dropdown menu creator",
   "main": "./build/index.js",
   "scripts": {
@@ -9,14 +9,15 @@
   },
   "author": "Colin Brennan",
   "license": "ISC",
-  "peerDependencies": {
-    "react": "^16.4.0"
-  },
   "dependencies": {
-    "react-dom": "^16.10.2",
     "react-html-parser": "^2.0.2",
-    "react-router-dom": "^5.1.2",
-    "react-transition-group": "^4.3.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "react-transition-group": "^4.2.1",
+    "url-metadata": "^2.4.0"
   },
   "repository": {
     "type": "git",

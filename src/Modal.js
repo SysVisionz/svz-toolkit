@@ -1,82 +1,95 @@
-import React, {Component} from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types';
+import {filterJoin} from './svz-utilities'
 import './scss/Modal.scss';
 
-class Modal extends Component {
+const Modal = props => {
 
-	closeFunction = evt => {
+	const {
+		startActive, 
+		onToggle, 
+		onOpen, 
+		onClose, 
+		noEsc, 
+		closeButton, 
+		children, 
+		className, 
+		superModal
+	} = props;
+	const [active, setActive] = useState(startActive);
+
+	const onEsc = evt => {
 		const {closeOnEsc = true} = this.props;
-		if ((!evt || evt.keyCode === 27) && closeOnEsc){
+		if ((!evt || evt.keyCode === 27)){
 			this.props.closeFunction();
 		}
 	}
 
-	componentDidUpdate(prevProps){
-		const {active, onToggle, superModal, noLock} = this.props;
-		if (active !== prevProps.active){
-			if (active !== this.props.locked && !superModal && !noLock){
-				this.props.screenLock(active);
+	const toggle = (value = !active) => {
+		setActive(value)
+		if (onToggle){
+			onToggle(value)
+		}
+		if (value){
+			if(onOpen){
+				onOpen()
 			}
-			if (onToggle){
-				onToggle(active);
+			if (!noEsc){
+				window.addEventListener('keydown', onEsc)
 			}
+		}
+		else {
+			if (onClose){
+				onClose()
+			}
+			window.removeEventListener('keydown', onEsc);
 		}
 	}
 
-	componentDidMount(){
-		window.addEventListener('keydown', this.closeFunction)
+	if (props.active !== active){
+		toggle(props.active);
 	}
 
-	componentWillUnmount(){
-		window.removeEventListener('keydown', this.closeFunction);
-	}
-
-	render() {
-		const {closeFunction} = this;
-		const {
-			closeButton = true, 
-			children, 
-			active,
-			className,
-			superModal
-		} = this.props;
-		const classNamer = 'modal-container' + (active ? ' active' : '') + ( superModal ? ' super' : '') + (className ? ' ' + className : '')
-		return (
+	return (
+		<div 
+			className={filterJoin(['modal-container', ['active', active], ['super', superModal], className])}
+		>
 			<div 
-				className={classNamer} 
-			>
-				<div 
-					className="modal-background"
-					onClick={() => closeFunction()}
-				/>
-				<div className="modal-window">
-					{
-						closeButton 
-							? (closeButton === true 
-								? <div 
-									className="modal-close button" 
-									onClick={() => closeFunction()}
-								>
-									X
-								</div> 
-								: closeButton) 
-							: null
-					}
-					{children}
-				</div>
+				className="modal-background"
+				onClick={() => closeFunction()}
+			/>
+			<div className="modal-window">
+				{
+					closeButton 
+						? (closeButton === true 
+							? <div 
+								className="modal-close button" 
+								onClick={() => closeFunction()}
+							>
+								X
+							</div> 
+							: closeButton) 
+						: null
+				}
+				{children}
 			</div>
-		)
-	}
+		</div>
+	)
 }
 
 Modal.propTypes = {
-	active: PropTypes.bool,
-	className: PropTypes.string, 
-	closeButton: PropTypes.element, 
-	children: PropTypes.element,
-	closeFunc: PropTypes.func,
-	onToggle: PropTypes.func,
-	backgroundColor: PropTypes.string,
+	startActive: PropTypes.bool, 
+	onToggle: PropTypes.func, 
+	onOpen: PropTypes.func, 
+	onClose: PropTypes.func,
+	noEsc: PropTypes.bool,
+	closeButton: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.bool,
+		PropTypes.element
+	]), 
+	className: PropTypes.string,
+	superModal: PropTypes.bool
 }
 
 export {Modal};

@@ -18,11 +18,9 @@ const OverlayBox = props => {
 }
 
 OverlayBox.propTypes = {
-	transitionTime: PropTypes.number,
-	background: PropTypes.string,
-	opacity: PropTypes.number,
 	content: PropTypes.object,
-	children: PropTypes.object
+	className: PropTypes.string,
+	onClick: PropTypes.func
 };
 
 export {OverlayBox};

@@ -72,27 +72,32 @@ class Slideshow extends Component {
 		let content;
 		// should arrow point right, value "point" is true
 		const point = direction > 0
-		switch(arrowType) {
-			case 'fatArrow':
-				content= point ? <div>&#8658;</div> : <div>&#8656;</div>;
-				break;
-			case 'fromBar':
-				content=point ? <div>&#8614;</div> : <div>&#8612;</div>;
-				break;
-			case 'swoop':
-				content= point ? <div>&#8618;</div> : <div>&#8617;</div>;
-				break; 
-			case 'thinArrow':
-				content= point ? <div>&#8594;</div> : <div>&#8592;</div>;
-				break;
-			case 'doublePointer':
-				content= point ? <div>&#187;</div> : <div>&#171;</div>;
-				break;
-			case 'thinPointer':
-				content= point ? <div>&#62;</div> : <div>&#60;</div>;
-				break;
-			default: 
-				content = point ? <div>&#8250;</div> : <div>&#8249;</div>;
+		if (typeof arrowType === 'string') {
+			switch(arrowType) {
+				case 'fatArrow':
+					content= point ? <div>&#8658;</div> : <div>&#8656;</div>;
+					break;
+				case 'fromBar':
+					content=point ? <div>&#8614;</div> : <div>&#8612;</div>;
+					break;
+				case 'swoop':
+					content= point ? <div>&#8618;</div> : <div>&#8617;</div>;
+					break; 
+				case 'thinArrow':
+					content= point ? <div>&#8594;</div> : <div>&#8592;</div>;
+					break;
+				case 'doublePointer':
+					content= point ? <div>&#187;</div> : <div>&#171;</div>;
+					break;
+				case 'thinPointer':
+					content= point ? <div>&#62;</div> : <div>&#60;</div>;
+					break;
+				default: 
+					content = point ? <div>&#8250;</div> : <div>&#8249;</div>;
+			}
+		}
+		else {
+			content = point ? <div>{arrowType}</div> : <div style={{transform: 'scaleX(-1)'}}>{arrowType}</div> 
 		}
 		return (
 			<div 
@@ -129,8 +134,6 @@ class Slideshow extends Component {
 }
 
 Slideshow.propTypes = {
-	slideWidth: PropTypes.number,
-	slideHeight: PropTypes.number,
 	slideshow: PropTypes.array,
 	interval: PropTypes.number,
 }

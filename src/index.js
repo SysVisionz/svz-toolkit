@@ -7,9 +7,7 @@ export * from './Dropdown.js';
 export * from './ElemPicker.js';
 export * from './ElemSquare.js';
 export * from './ExpanderBox.js';
-export * from './ExpandingList.js';
 export * from './ExpandingText.js';
-export * from './ExpandingTextList.js';
 export * from './Fader.js';
 export * from './Input.js';
 export * from './LoginBox.js';
@@ -21,6 +19,5 @@ export * from './ProfileCard.js';
 export * from './Selector.js';
 export * from './Slideshow.js';
 export * from './svz-utilities.js';
-export * from './Uploader.js'
 export * from './ScreenManager';
 export * from './TagsPicker';

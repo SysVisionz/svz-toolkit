@@ -236,7 +236,7 @@ class ScreenManager extends React.Component  {
 	}
 
 	render(){
-		const props = {...this.state, screenLock: this.lock, scrollToward: this.location, smoothScrolling: this.smooth, addListener: this.addListener, screenLocked: this.state.locked}
+		const props = {smoothed: this.state.smoothed, screenLock: this.lock, scrollToward: this.location, smoothScrolling: this.smooth, addListener: this.addListener, screenLocked: this.state.locked}
 		return React.cloneElement(this.props.children, {...props})
 	}
 }

@@ -115,7 +115,7 @@ class CompareSlideshow extends Slideshow {
 
 	render() {
 		const {arrow, imageLoad} = this;
-		const {vertical, } = this.props;
+		const {vertical} = this.props;
 		const {slides,index, id} = this.state;
 		const show = Array(slides.length);
 		for (const i in slides) {

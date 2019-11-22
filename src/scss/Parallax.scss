@@ -1,18 +1,41 @@
 @import 'base-vars.scss';
-
-.svz-parallax{
-	display: flex; 
-	justify-content: center;
-	overflow:hidden; 
+.svz-parallax-container{
 	position: relative;
-	transition: opacity 300ms ease;
-	.plax-container{
+	height: 100%;
+	width: 100%;
+	.svz-parallax{
+		top: 0;
+		display: flex; 
+		justify-content: center;
+		clip: rect(auto, auto, auto, auto); 
 		position: absolute;
-		height: 100vh;
-		width: 100vw;
-		z-index: -1001;
+		transition: opacity 300ms ease;
+		height: 100%;
+		width: 100%;
+		.plax-container{
+			position:fixed;
+			height: 100%;
+			width: 100%;
+			&.run-y{
+				height: 100vh;
+			}
+			&.run-x{
+				width: 100vw;
+			}
+			z-index: -1001;
+		}
 		&.slow{
-			height: 120vh;
+			overflow: hidden;
+			clip: unset;
+			.plax-container{
+				position: absolute;
+				&.run-y{
+					height: 150%;
+				}
+				&.run-x{
+					width: 150%;
+				}
+			}
 		}
 	}
 }

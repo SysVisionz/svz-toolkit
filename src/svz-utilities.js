@@ -101,8 +101,6 @@ Array.sequential = (length, calculate, current = []) => {
     }
 }
 
-Array.sum = (arr) => arr.reduce((a, b) => a + b, 0);
-
 Object.sequential = (arrKeys, calculate, current = {}) => {
 	const i = Object.keys(current).length
 	current[arrKeys[i]] = calculate(arrKeys[i])

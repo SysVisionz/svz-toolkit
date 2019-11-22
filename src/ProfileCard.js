@@ -32,7 +32,7 @@ const ProfileCard = props => {
 						: 	null
 					}
 				</div>
-				<p>{details}</p>
+				<div>{children}</div>
 			</div>
 		</div>
 	)
@@ -40,7 +40,6 @@ const ProfileCard = props => {
 
 ProfileCard.propTypes = {
 	birthdate: PropTypes.object,
-	details: PropTypes.string,
 	name: PropTypes.string,
 
 };
